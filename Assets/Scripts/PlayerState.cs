@@ -28,8 +28,6 @@ public class PlayerState
         player.anim.SetBool(animBoolName, true);
         rb = player.rb;
         triggerCalled = false;
-
-        stateTimer = .1f;
     }
 
     public virtual void Update()
