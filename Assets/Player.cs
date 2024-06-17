@@ -75,6 +75,8 @@ public class Player : MonoBehaviour
         CheckForDashInput();
     }
 
+    public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigged();
+
     private void CheckForDashInput()
     {
         if (IsWallDetected())
