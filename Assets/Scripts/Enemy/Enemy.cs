@@ -9,6 +9,8 @@ public class Enemy : Entity
     [Header("Stunned Info")]
     public float stunDuration;
     public Vector2 stunDirection;
+    protected bool canBeStunned;
+    [SerializeField] protected GameObject counterImage;
 
     [Header("Move Info")]
     public float moveSpeed;
@@ -34,6 +36,29 @@ public class Enemy : Entity
         base.Update();
         stateMachine.currentState.Update();
 
+    }
+
+    public virtual void OpenCounterAttackWindow()
+    {
+        canBeStunned = true;
+        counterImage.SetActive(true);
+    }
+
+    public virtual void CloseCounterAttackWindow()
+    {
+        canBeStunned = false;
+        counterImage.SetActive(false);
+    }
+
+    protected virtual bool CanBeStunned()
+    {
+        if (canBeStunned)
+        {
+            CloseCounterAttackWindow();
+            return true;
+        }
+
+        return false;
     }
 
     public virtual void AnimationFinishiTrigger() => stateMachine.currentState.AnimationFinishTrigger();
