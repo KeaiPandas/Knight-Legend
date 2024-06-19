@@ -6,8 +6,7 @@ public class Player : Entity
 {
     [Header("Attack Details")]
     public Vector2[] attackMovement;
-    public Transform attackCheck;
-    public float attackCheckRadius;
+    
 
     public bool isBusy { get; private set; }
 
