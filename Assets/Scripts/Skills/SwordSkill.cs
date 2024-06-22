@@ -1,9 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+
+public enum SwordType
+{
+    Regular,
+    Bounce,
+    Pierce,
+    Spin
+}
 
 public class SwordSkill : Skill
 {
+    public SwordType swordType = SwordType.Regular;
+
+    [Header("Bounce Info")]
+    [SerializeField] private int bounceAmount;
+    [SerializeField] private float bounceGravity;
+
+    [Header("Peirce Info")]
+    [SerializeField] private int pierceAmount;
+    [SerializeField] private float pierceGravity;
+
+    [Header("Spin Info")]
+    [SerializeField] private float hitCooldown = .35f;
+    [SerializeField] private float maxTravelDistance = 7;
+    [SerializeField] private float spinDuration = 2;
+    [SerializeField] private float spinGravity = 1;
+
     [Header("Skill Info")]
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce;
@@ -24,6 +47,18 @@ public class SwordSkill : Skill
     {
         base.Start();
         GenarateDots();
+
+        SetUpGravity();
+    }
+
+    private void SetUpGravity()
+    {
+        if (swordType == SwordType.Bounce)
+            swordGravity = bounceGravity;
+        else if (swordType == SwordType.Pierce)
+            swordGravity = pierceGravity;
+        else if (swordType == SwordType.Spin)
+            swordGravity = spinGravity;
     }
 
     protected override void Update()
@@ -44,6 +79,12 @@ public class SwordSkill : Skill
         GameObject newSword = Instantiate(swordPrefab, player.transform.position, transform.rotation);
         Sword_Skill_Controller newSwordScript = newSword.GetComponent<Sword_Skill_Controller>();
 
+        if (swordType == SwordType.Bounce)
+            newSwordScript.SetupBounce(true, bounceAmount);
+        else if (swordType == SwordType.Pierce)
+            newSwordScript.SetupPierce(pierceAmount);
+        else if (swordType == SwordType.Spin)
+            newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration);
 
         newSwordScript.SetupSword(finalDir, swordGravity, player);
 
@@ -52,6 +93,7 @@ public class SwordSkill : Skill
         DotsActive(false);
     }
 
+    #region Aim region
     public Vector2 AimDirection()
     {
         Vector2 playePosition = player.transform.position;
@@ -63,7 +105,8 @@ public class SwordSkill : Skill
 
     public void DotsActive(bool _isActive)
     {
-        for (int i = 0; i < dots.Length; i++){
+        for (int i = 0; i < dots.Length; i++)
+        {
             dots[i].SetActive(_isActive);
         }
     }
@@ -85,5 +128,6 @@ public class SwordSkill : Skill
             AimDirection().normalized.y * launchForce.y) * t + .5f * (Physics2D.gravity * swordGravity) * (t * t);
 
         return position;
-    }
+    } 
+    #endregion
 }
