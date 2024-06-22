@@ -84,7 +84,7 @@ public class SwordSkill : Skill
         else if (swordType == SwordType.Pierce)
             newSwordScript.SetupPierce(pierceAmount);
         else if (swordType == SwordType.Spin)
-            newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration);
+            newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration, hitCooldown);
 
         newSwordScript.SetupSword(finalDir, swordGravity, player);
 
