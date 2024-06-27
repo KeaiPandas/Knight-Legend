@@ -23,6 +23,8 @@ public class BlackHoleSkillController : MonoBehaviour
     private List<Transform> targets = new List<Transform>();
     private List<GameObject> createdHotKey = new List<GameObject>();
 
+    public bool playerCanExitState { get; private set; }
+
     public void SetupBlackhole(float _maxSize, float _growSpeed, float _shrinkSpeed, int _amountOfAttacks, float _cloneAttackCooldown)
     {
         maxSize = _maxSize;
@@ -93,9 +95,10 @@ public class BlackHoleSkillController : MonoBehaviour
 
     private void FinishBlackHoleAbility()
     {
-        PlayerManager.instance.player.ExitBlackHoleAbility();
+        playerCanExitState = true;
         canShrink = true;
         cloneAttackReleased = false;
+        //PlayerManager.instance.player.ExitBlackHoleAbility();
     }
 
     private void DestroyHotKeys()
