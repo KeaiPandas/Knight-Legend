@@ -6,6 +6,7 @@ public class BlackholeSkill : Skill
 {
     [SerializeField] private int amountOfAttacks;
     [SerializeField] private float cloneCooldown;
+    [SerializeField] private float blackholeDuration;
     [Space]
     [SerializeField] private GameObject blackHolePrefab;
     [SerializeField] private float maxSize;
@@ -25,7 +26,7 @@ public class BlackholeSkill : Skill
 
         GameObject newBlackHole = Instantiate(blackHolePrefab, player.transform.position, Quaternion.identity);
         currentBlackhole = newBlackHole.GetComponent<BlackHoleSkillController>();
-        currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, cloneCooldown);
+        currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, cloneCooldown, blackholeDuration);
     }
 
     protected override void Start()
