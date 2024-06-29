@@ -17930,6 +17930,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405730886130780295, guid: 37fba565ca2c0784fa96242ff3422e95, type: 3}
+      propertyPath: growSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6982503184838743146, guid: 37fba565ca2c0784fa96242ff3422e95, type: 3}
       propertyPath: m_Name
       value: Crystal
