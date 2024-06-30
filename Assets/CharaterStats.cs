@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharaterStats : MonoBehaviour
@@ -29,9 +26,21 @@ public class CharaterStats : MonoBehaviour
 
     public virtual void DoDamage(CharaterStats _targetStats)
     {
-        int totalDamage = damage.GetValue() + strength.GetValue();
+        if (TargetCanAvoidAttack(_targetStats))
+            return;
 
+
+
+        int totalDamage = damage.GetValue() + strength.GetValue();
+        totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage);
+    }
+
+    private int CheckTargetArmor(CharaterStats _targetStats, int totalDamage)
+    {
+        totalDamage -= _targetStats.armor.GetValue();
+        totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
+        return totalDamage;
     }
 
     public virtual void TakeDamage(int _damage)
@@ -47,5 +56,16 @@ public class CharaterStats : MonoBehaviour
     protected virtual void Die()
     {
         //throw new NotImplementedException();
+    }
+    private bool TargetCanAvoidAttack(CharaterStats _targetStats)
+    {
+        int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
+
+        if (Random.Range(0, 100) < totalEvasion)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
