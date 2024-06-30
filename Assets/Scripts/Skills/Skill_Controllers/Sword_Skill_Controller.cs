@@ -193,7 +193,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             Enemy enemy = collision.GetComponent<Enemy>();
             SwordSkillDamage(enemy);
         }
-        collision.GetComponent<Enemy>()?.Damage();
+        collision.GetComponent<Enemy>()?.DamageEffect();
         SetupTargetForBounce(collision);
         StuckInto(collision);
 
@@ -201,7 +201,7 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private void SwordSkillDamage(Enemy enemy)
     {
-        enemy.Damage();
+        enemy.DamageEffect();
         enemy.StartCoroutine("FreezeTimeFor", freezeTimeDuration);
     }
 
