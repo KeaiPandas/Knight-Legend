@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour
     public Animator anim { get; private set; }
     public EntityFX fx { get; private set; }
     public SpriteRenderer sr { get; private set; }
+    public CharaterStats stats { get; private set; }
     #endregion
 
     [Header("Knockback Info")]
@@ -41,6 +42,7 @@ public class Entity : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         fx = GetComponent<EntityFX>();
         rb = GetComponent<Rigidbody2D>();
+        stats = GetComponent<CharaterStats>();
     }
 
     // Update is called once per frame
