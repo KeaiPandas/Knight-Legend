@@ -29,8 +29,13 @@ public class CharaterStats : MonoBehaviour
     public bool isShocked; // reduce accuracy by 20%
 
     private float ignitedTimer;
+    private float chilledTimer;
+    private float shockedTimer;
+
+
     private float igniteDamageCoolDown = .3f;
     private float igniteDamageTimer;
+    private int igniteDamage;
 
 
     [SerializeField] private int currentHealth;
@@ -46,14 +51,31 @@ public class CharaterStats : MonoBehaviour
     protected virtual void Update()
     {
         ignitedTimer -= Time.deltaTime;
+        chilledTimer -= Time.deltaTime;
+        shockedTimer -= Time.deltaTime;
+
+
+
         igniteDamageTimer -= Time.deltaTime;
 
         if (ignitedTimer < 0)
             isIgnited = false;
 
+        if (chilledTimer < 0)
+            isChilled = false;
+
+        if (shockedTimer < 0)
+            isShocked = false;
+
         if (igniteDamageTimer < 0 && isIgnited)
         {
-            Debug.Log("Take burn damage");
+            Debug.Log("Take burn damage" + igniteDamage);
+
+            currentHealth -= igniteDamage;
+
+            if (currentHealth < 0)
+                Die();
+
             igniteDamageTimer = igniteDamageCoolDown;
         }
     }
@@ -117,6 +139,9 @@ public class CharaterStats : MonoBehaviour
             }
         }
 
+        if (canApplyIgnite)
+            _targetStats.SetupIgniteDamage(Mathf.RoundToInt(_fireDamage * .2f));
+
         _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
 
     }
@@ -136,12 +161,23 @@ public class CharaterStats : MonoBehaviour
         if (_ignite)
         {
             isIgnited = _ignite;
-            ignitedTimer = 4;
+            ignitedTimer = 2;
         }
 
-        isChilled = _chill;
-        isShocked = _shock;
+        if (_chill)
+        {
+            chilledTimer = 2;
+            isChilled = _chill;
+        }
+    
+        if (_shock)
+        {
+            shockedTimer = 2;
+            isShocked = _shock;
+        }
     }
+
+    public void SetupIgniteDamage(int _damage) => igniteDamage = _damage;
 
     public virtual void TakeDamage(int _damage)
     {
