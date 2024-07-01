@@ -111,7 +111,8 @@ public class Entity : MonoBehaviour
         facingRight = !facingRight;
         transform.Rotate(0, 180, 0);
 
-        onFlipped();
+        if (onFlipped != null)
+            onFlipped();
     }
 
     public virtual void FlipController(float _x)
