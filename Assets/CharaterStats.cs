@@ -45,6 +45,7 @@ public class CharaterStats : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        // comment
         critPower.SetDefaultValue(150);
         currentHealth = GetMaxHealthValue();
     }
