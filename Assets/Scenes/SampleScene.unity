@@ -15942,11 +15942,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e245371732cfaa4d89be3a5d5e9682b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashDuration: 0.15
+  flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 901fbfe412c5be24996623eaf8ec3cd2, type: 2}
-  chillColor: {r: 0, g: 0, b: 0, a: 0}
-  igniteColor: []
-  shockColor: []
+  chillColor:
+  - {r: 0, g: 0.5384617, b: 1, a: 1}
+  - {r: 0.2591668, g: 0.5455119, b: 0.9056604, a: 1}
+  igniteColor:
+  - {r: 0.99215686, g: 0.3882353, b: 0.3882353, a: 1}
+  - {r: 0.9529412, g: 0.7529412, b: 0.7529412, a: 1}
+  shockColor:
+  - {r: 1, g: 0.8901961, b: 0.38431373, a: 1}
+  - {r: 0.94509804, g: 0.8745098, b: 0.7372549, a: 1}
 --- !u!114 &813738317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15993,10 +15999,10 @@ MonoBehaviour:
     baseValue: 1
     modifiers: 
   fireDamage:
-    baseValue: 20
+    baseValue: 0
     modifiers: 
   iceDamage:
-    baseValue: 0
+    baseValue: 2
     modifiers: 
   lightingDamage:
     baseValue: 0
@@ -16004,6 +16010,7 @@ MonoBehaviour:
   isIgnited: 0
   isChilled: 0
   isShocked: 0
+  alimentsDuration: 4
   currentHealth: 0
 --- !u!1 &1052218521
 GameObject:
@@ -17285,11 +17292,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 901fbfe412c5be24996623eaf8ec3cd2, type: 2}
-  chillColor: {r: 0, g: 0, b: 0, a: 0}
+  chillColor:
+  - {r: 0, g: 0.5384617, b: 1, a: 1}
+  - {r: 0.2591668, g: 0.5455119, b: 0.9056604, a: 1}
   igniteColor:
   - {r: 0.99215686, g: 0.3882353, b: 0.3882353, a: 1}
   - {r: 0.9529412, g: 0.7529412, b: 0.7529412, a: 1}
-  shockColor: []
+  shockColor:
+  - {r: 1, g: 0.8901961, b: 0.38431373, a: 1}
+  - {r: 0.94509804, g: 0.8745098, b: 0.7372549, a: 1}
 --- !u!114 &1698137686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17347,6 +17358,7 @@ MonoBehaviour:
   isIgnited: 0
   isChilled: 0
   isShocked: 0
+  alimentsDuration: 4
   currentHealth: 0
 --- !u!70 &1698137687
 CapsuleCollider2D:

@@ -13,7 +13,7 @@ public class EntityFX : MonoBehaviour
 
 
     [Header("Aliment colors")]
-    [SerializeField] private Color chillColor;
+    [SerializeField] private Color[] chillColor;
     [SerializeField] private Color[] igniteColor;
     [SerializeField] private Color[] shockColor;
     private void Start()
@@ -62,4 +62,33 @@ public class EntityFX : MonoBehaviour
         else
             sr.color = igniteColor[1];
     }
+
+    public void ChillFxFor(float _seconds)
+    {
+        InvokeRepeating("ChillColorFix", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    }
+    private void ChillColorFix()
+    {
+        if (sr.color != chillColor[0])
+            sr.color = chillColor[0];
+        else
+            sr.color = chillColor[1];
+    }
+
+    public void ShockFxFor(float _seconds)
+    {
+        InvokeRepeating("ShockColorFx", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    }
+
+    private void ShockColorFx()
+    {
+        if (sr.color != shockColor[0])
+            sr.color = shockColor[0];
+        else
+            sr.color = shockColor[1];
+    }
+
+
 }
