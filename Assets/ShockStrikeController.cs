@@ -52,7 +52,6 @@ public class ShockStrikeController : MonoBehaviour
 
     private void DamageAndSelfDestroy()
     {
-        // shuazi
         targetStats.ApplyShock(true);
         targetStats.TakeDamage(1);
         Destroy(gameObject, .4f);
