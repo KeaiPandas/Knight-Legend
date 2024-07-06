@@ -1,8 +1,9 @@
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class UI_ItemSlot : MonoBehaviour
+public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
@@ -28,5 +29,11 @@ public class UI_ItemSlot : MonoBehaviour
                 itemText.text = "";
             }
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (item.data.itemType == ItemType.Equipment)
+            Debug.Log("Equiped new Item " + item.data.itemName);
     }
 }
