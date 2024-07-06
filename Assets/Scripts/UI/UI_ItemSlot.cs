@@ -31,9 +31,19 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    public void CleanUpSlot()
+    {
+        item = null;
+
+        itemImage.sprite = null;
+        itemImage.color = Color.clear;
+        itemText.text = "";
+
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (item.data.itemType == ItemType.Equipment)
-            Debug.Log("Equiped new Item " + item.data.itemName);
+            Inventory.instance.EquipItem(item.data);
     }
 }

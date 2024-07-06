@@ -7,12 +7,15 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
+
     public List<InventoryItem> invetory;
     public Dictionary<ItemData, InventoryItem> inventoryDictionary;
 
     public List<InventoryItem> stash;
     public Dictionary<ItemData, InventoryItem> stashDictionary;
 
+    public List<InventoryItem> equipment;
+    public Dictionary<ItemDataEquipment, InventoryItem> equipmentDictionary;
 
     [Header("Inventory UI")]
     [SerializeField] private Transform inventorySlotParent;
@@ -37,12 +40,54 @@ public class Inventory : MonoBehaviour
         stash = new List<InventoryItem>();
         stashDictionary = new Dictionary<ItemData, InventoryItem>();
 
+        equipment = new List<InventoryItem>();
+        equipmentDictionary = new Dictionary<ItemDataEquipment, InventoryItem>();
+
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
     }
 
+    public void EquipItem(ItemData _item)
+    {
+        ItemDataEquipment newEquipment = _item as ItemDataEquipment;
+        InventoryItem newItem = new InventoryItem(newEquipment);
+
+        ItemDataEquipment oldEquipment = null;
+
+        foreach (KeyValuePair<ItemDataEquipment, InventoryItem> item in equipmentDictionary)
+        {
+            if (item.Key.equipmentType == newEquipment.equipmentType)
+                oldEquipment = item.Key;
+        }
+
+        if (oldEquipment != null)
+        {
+            UnequipItem(oldEquipment);
+            AddItem(oldEquipment);
+        }
+
+        equipment.Add(newItem);
+        equipmentDictionary.Add(newEquipment, newItem);
+        RemoveItem(_item);
+
+    }
+
+    private void UnequipItem(ItemDataEquipment itemToRemove)
+    {
+        if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
+        {
+            equipment.Remove(value);
+            equipmentDictionary.Remove(itemToRemove);
+        }
+    }
+
     private void UpdateSlotUI()
     {
+        for (int i = 0; i < inventoryItemSlot.Length; i++)
+        {
+            inventoryItemSlot[i].CleanUpSlot();
+        }
+
         for (int i = 0; i < invetory.Count; i++)
         {
             inventoryItemSlot[i].UpdateSlot(invetory[i]);
@@ -119,8 +164,4 @@ public class Inventory : MonoBehaviour
         UpdateSlotUI();
     }
 
-    private void Update()
-    {
-        
-    }
 }
