@@ -20,9 +20,12 @@ public class Inventory : MonoBehaviour
     [Header("Inventory UI")]
     [SerializeField] private Transform inventorySlotParent;
     [SerializeField] private Transform stashSlotParent;
+    [SerializeField] private Transform equipmentSlotParent;
+    
 
     private UI_ItemSlot[] inventoryItemSlot;
     private UI_ItemSlot[] stashItemSlot;
+    private UI_EquipmentSlot[] equipmentItemSlot;
 
     private void Awake()
     {
@@ -45,6 +48,7 @@ public class Inventory : MonoBehaviour
 
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
+        equipmentItemSlot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
     }
 
     public void EquipItem(ItemData _item)
@@ -70,6 +74,7 @@ public class Inventory : MonoBehaviour
         equipmentDictionary.Add(newEquipment, newItem);
         RemoveItem(_item);
 
+        UpdateSlotUI();
     }
 
     private void UnequipItem(ItemDataEquipment itemToRemove)
@@ -83,10 +88,25 @@ public class Inventory : MonoBehaviour
 
     private void UpdateSlotUI()
     {
+        for (int i = 0; i < equipmentItemSlot.Length; i++)
+        {
+            foreach (KeyValuePair<ItemDataEquipment, InventoryItem> item in equipmentDictionary)
+            {
+                if (item.Key.equipmentType == equipmentItemSlot[i].slotType)
+                    equipmentItemSlot[i].UpdateSlot(item.Value);
+            }
+        }
+
         for (int i = 0; i < inventoryItemSlot.Length; i++)
         {
             inventoryItemSlot[i].CleanUpSlot();
         }
+
+        for (int i = 0; i < stashItemSlot.Length; i++)
+        {
+            stashItemSlot[i].CleanUpSlot();
+        }
+
 
         for (int i = 0; i < invetory.Count; i++)
         {
