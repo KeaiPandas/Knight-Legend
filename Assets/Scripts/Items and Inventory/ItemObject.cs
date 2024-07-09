@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ItemObject : MonoBehaviour
 {
+    [SerializeField] Rigidbody2D rb;
     [SerializeField] private ItemData itemData;
+    [SerializeField] private Vector2 velocity;
 
     private void OnValidate()
     {
@@ -12,12 +14,22 @@ public class ItemObject : MonoBehaviour
         gameObject.name = "Item object - " + itemData.itemName;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.GetComponent<Player>() != null)
-        {
-            Inventory.instance.AddItem(itemData);
-            Destroy(gameObject);
-        }
+        if (Input.GetKeyDown(KeyCode.M))
+            rb.velocity = velocity;
+    }
+
+    public void SetupItem(ItemData _itemData, Vector2 _velocity)
+    {
+        itemData = _itemData;
+        velocity = _velocity;
+    }
+
+
+    public void PickUpItem()
+    {
+        Inventory.instance.AddItem(itemData);
+        Destroy(gameObject);
     }
 }
