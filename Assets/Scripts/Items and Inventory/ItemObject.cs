@@ -24,6 +24,7 @@ public class ItemObject : MonoBehaviour
     {
         itemData = _itemData;
         velocity = _velocity;
+        // test
     }
 
 
