@@ -6,7 +6,7 @@ public class ItemObject : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] private ItemData itemData;
-    [SerializeField] private Vector2 velocity;
+    // [SerializeField] private Vector2 velocity;
 
     private void OnValidate()
     {
@@ -23,7 +23,7 @@ public class ItemObject : MonoBehaviour
     public void SetupItem(ItemData _itemData, Vector2 _velocity)
     {
         itemData = _itemData;
-        velocity = _velocity;
+        rb.velocity = _velocity;
     }
 
 
