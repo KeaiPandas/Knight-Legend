@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6276525573965449721}
   - component: {fileID: 1637552050254072110}
   - component: {fileID: 7103693142861331628}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Item object - No data
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
