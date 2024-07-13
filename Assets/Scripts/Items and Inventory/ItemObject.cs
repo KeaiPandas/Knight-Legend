@@ -6,12 +6,11 @@ public class ItemObject : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] private ItemData itemData;
-    // [SerializeField] private Vector2 velocity;
+     [SerializeField] private Vector2 velocity;
 
     private void OnValidate()
     {
-        GetComponent<SpriteRenderer>().sprite = itemData.icon;
-        gameObject.name = "Item object - " + itemData.itemName;
+        
     }
 
     private void Update()
@@ -22,6 +21,8 @@ public class ItemObject : MonoBehaviour
 
     public void SetupItem(ItemData _itemData, Vector2 _velocity)
     {
+        GetComponent<SpriteRenderer>().sprite = itemData.icon;
+        gameObject.name = "Item object - " + itemData.itemName;
         itemData = _itemData;
         rb.velocity = _velocity;
     }

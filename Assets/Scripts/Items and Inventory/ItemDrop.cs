@@ -7,8 +7,12 @@ public class ItemDrop : MonoBehaviour
     [SerializeField] private GameObject dropPrefab;
     [SerializeField] private ItemData item;
 
-    private void DropItem()
+    public void DropItem()
     {
+        GameObject newDrop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
 
+        Vector2 randomVelocity = new Vector2(Random.Range(-5, 5), Random.Range(12, 15));
+
+        newDrop.GetComponent<ItemObject>().SetupItem(item, randomVelocity);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStats : CharaterStats
 {
     private Enemy enemy;
+    private ItemDrop myDropSystem;
 
     [Header("Level details")]
     [SerializeField] private int level = 1;
@@ -20,6 +21,7 @@ public class EnemyStats : CharaterStats
         base.Start();
 
         enemy = GetComponent<Enemy>();
+        myDropSystem = GetComponent<ItemDrop>();
 
     }
 
@@ -64,5 +66,7 @@ public class EnemyStats : CharaterStats
     {
         base.Die();
         enemy.Die();
+
+        myDropSystem.DropItem();
     }
 }
