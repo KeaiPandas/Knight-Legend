@@ -11,9 +11,8 @@ public class ItemDrop : MonoBehaviour
     private List<ItemData> dropList = new List<ItemData>();
 
     [SerializeField] private GameObject dropPrefab;
-    [SerializeField] private ItemData item;
 
-    public void GenerateDrop()//随机生成物品函数
+    public virtual void GenerateDrop()//随机生成物品函数
     {
         for (int i = 0; i < possibleDrop.Length; i++)//一个判断可能出现的装备
         {
@@ -34,7 +33,7 @@ public class ItemDrop : MonoBehaviour
         }
     }
 
-    public void DropItem(ItemData _itemData)//创建实例函数
+    protected void DropItem(ItemData _itemData)//创建实例函数
     {
         GameObject newDrop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
 
