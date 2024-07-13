@@ -200,4 +200,38 @@ public class Inventory : MonoBehaviour
     public List<InventoryItem> GetEquipmentList() => equipment;
 
     public List<InventoryItem> GetStashList() => stash;
+
+    public bool CanCraft(ItemDataEquipment _itemToCraft, List<InventoryItem> _requiredMaterials)
+    {
+        List<InventoryItem> materialsToRemove = new List<InventoryItem>();
+
+        for (int i = 0; i < _requiredMaterials.Count; i++)
+        {
+            if (stashDictionary.TryGetValue(_requiredMaterials[i].data, out InventoryItem stashValue))
+            {
+                if (stashValue.stackSize < _requiredMaterials[i].stackSize)
+                {
+                    return false;
+                }
+                else
+                {
+                    materialsToRemove.Add(stashValue);
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < materialsToRemove.Count; i++)
+        {
+            RemoveItem(materialsToRemove[i].data);
+        }
+
+        AddItem(_itemToCraft);
+
+        return true;
+
+    }
 }
