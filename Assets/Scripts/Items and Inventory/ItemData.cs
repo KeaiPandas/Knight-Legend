@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemType
@@ -11,5 +13,8 @@ public class ItemData : ScriptableObject
 {
     public ItemType itemType;
     public string itemName;
-    public Sprite icon;
+    public Sprite icon;//Í¼±ê
+
+    [Range(0, 100)]
+    public float dropChance;
 }

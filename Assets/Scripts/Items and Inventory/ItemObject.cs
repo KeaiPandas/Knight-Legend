@@ -6,29 +6,31 @@ public class ItemObject : MonoBehaviour
 {
     private SpriteRenderer sr;
 
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] private ItemData itemData;
-    [SerializeField] private Vector2 velocity;
+    [SerializeField] private Rigidbody2D rb;//设置速度
+    [SerializeField] private ItemData ItemData;
+    [SerializeField] private Vector2 velocity;//设置速度
+
 
     private void SetupVisuals()
     {
-        if (!itemData)
+        if (ItemData == null)
             return;
-        GetComponent<SpriteRenderer>().sprite = itemData.icon;
-        gameObject.name = itemData.name;
+
+        GetComponent<SpriteRenderer>().sprite = ItemData.icon;
+        gameObject.name = ItemData.name;
     }
 
-    public void SetupItem(ItemData _itemData, Vector2 _velocity)
+    public void SetupItem(ItemData _itemData, Vector2 _velocity)// 设置实例函数
     {
-        itemData = _itemData;
-        rb.velocity = _velocity;
+        ItemData = _itemData;
+        rb.velocity = _velocity;//设置速度
+ 
         SetupVisuals();
     }
 
-
-    public void PickUpItem()
+    public void PickupItem()//拾取函数打包
     {
-        Inventory.instance.AddItem(itemData);
+        Inventory.instance.AddItem(ItemData);
         Destroy(gameObject);
     }
 }
